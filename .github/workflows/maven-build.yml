@@ -1,0 +1,37 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out your repository's code [cite: 54]
+    - uses: actions/checkout@v3
+
+    # Step 2: Set up the Java environment
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    # Step 3: Build with Maven [cite: 55]
+    - name: Build with Maven
+      run: mvn -B package --file order-service/pom.xml
+
+    # Step 4: Run tests [cite: 56]
+    - name: Run Tests
+      run: mvn test --file order-service/pom.xml
+
+    # Step 5: Placeholder for Deployment [cite: 57]
+    # This step is complex and depends on your chosen AWS service (e.g., Elastic Beanstalk).
+    # You would add AWS CLI commands here to deploy your application.
+    - name: Deploy to AWS
+      run: echo "Deployment scripts would go here."
